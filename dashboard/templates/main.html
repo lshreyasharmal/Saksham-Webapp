@@ -1,7 +1,5 @@
 <!-- sakshamsite/templates/main.html -->
-<!DOCTYPE html>
-{% block content %}
-{%load staticfiles%}
+<!DOCTYPE html> {% block content %} {%load staticfiles%}
 <html>
 {% if msg %}
 <script>
@@ -12,18 +10,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'dashboard/css/main.css' %}" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <style>
         .btn-theme {
             color: #fff;
             background-color: #f4af2a;
             border-color: #f4af2a;
         }
-
+        
         .bg-theme {
             background-color: #ffd05e !important;
         }
@@ -35,10 +31,8 @@
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom border-warning">
 
-        <a class="navbar-brand" href="#"><img src="{% static 'dashboard/images/ic_launcher.png' %}"
-                style="width: 25%;">Saksham</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#"><img src="{% static 'dashboard/images/ic_launcher.png' %}" style="width: 25%;">Saksham</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -60,14 +54,14 @@
         </div>
     </nav>
     <div class="container mt-5">
-        <div class="row py-5
-        ">
+        <div class="row py-5">
             {% for key,item in patients.items %}
             <div class="col-6 col-md-4 col-xl-3 my-3 px-3">
                 <div class="card bg-theme ">
                     <!-- <a href=""> -->
                     <!-- <img class="card-img-top img-thumbnail" src="{% static 'dashboard/images/avatar.png' %}" alt="Card image cap"> -->
-                    {% comment %} <div class="card-head text-center py-1">
+                    {% comment %}
+                    <div class="card-head text-center py-1">
                         <i class="text-white fas fa-user-circle fa-6x"></i>
 
                     </div> {% endcomment %}
