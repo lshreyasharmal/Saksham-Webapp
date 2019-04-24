@@ -199,10 +199,13 @@ def get_phm(db, my_id):
 
 
 def get_activity_usage(db, my_id):
+    print(my_id)
     patient_dates = db.collection(u'time_dates').document(my_id).collection("dates").get()
+    
     dicts = []
     for items in patient_dates:
         dicts.append(items.to_dict())
+        print(items.to_dict())
     if(dicts == []):
         return None
 
