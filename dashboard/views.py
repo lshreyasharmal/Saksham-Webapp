@@ -102,6 +102,42 @@ def get_daily_routine(db, my_id):
     return daily_routine
 
 
+def get_questions(db, my_id):
+    pateint_info_dates = db.collection(u'time_dates_info').document(
+        my_id).collection("dates").get()
+    dicts = []
+    for items in pateint_info_dates:
+        dicts.append(items.to_dict());
+    if(dicts==[]):
+        return None
+    dates = dicts[0].keys()
+    modules = dicts[1].keys()
+
+    questions_database = db.collection(u'time_spent_info').document(my_id)
+    question_collection = {}
+
+    j = 1 
+    for date in dates:
+        for module in modules:
+            questions = questions_database.collection(date).document(module).get()
+            if questions.to_dict()!={}:
+                print(questions.to_dict())
+                name = questions.to_dict()['name']
+                hm = questions.to_dict()['hm']
+                
+                for k in hm:
+                    number = int(k) + 1
+                    v = hm[k]
+                    question_collection[j]={
+                        "index" : j,
+                        "date" : date,
+                        "name" : name + " Question " + str(number),
+                        "timespent" : get_time(v,"ques")
+                    }
+                    j+=1
+    print(question_collection)
+    return(question_collection)
+
 def get_diet(db, my_id):
     patient_dates = db.collection(u'patient_dietr_dates').document(
         my_id).collection("dates").get()
@@ -200,8 +236,9 @@ def get_phm(db, my_id):
 
 def get_activity_usage(db, my_id):
     print(my_id)
-    patient_dates = db.collection(u'time_dates').document(my_id).collection("dates").get()
-    
+    patient_dates = db.collection(u'time_dates').document(
+        my_id).collection("dates").get()
+
     dicts = []
     for items in patient_dates:
         dicts.append(items.to_dict())
@@ -224,16 +261,17 @@ def get_activity_usage(db, my_id):
                 activity_usage[j] = {
                     'index': j,
                     "module_name": au_document.to_dict()['activity_name'],
-                    "date" : date,
+                    "date": date,
                     "time": au_document.to_dict()['timeSpent']
                 }
                 print(j)
                 j += 1
             else:
-                print("oops")
+                print("Activity/Fragment Not Used this day")
                 print(name)
 
     return(activity_usage)
+
 
 def get_patient_info(request, my_id):
     db = get_db()
@@ -245,17 +283,18 @@ def get_patient_info(request, my_id):
     injection = get_injection_schedule(db, my_id)
     diet = get_diet(db, my_id)
     physical_health = get_phm(db, my_id)
-    activity_usage = get_activity_usage(db,my_id)
-    print(activity_usage)
-
+    activity_usage = get_activity_usage(db, my_id)
+    question_usage = get_questions(db,my_id)
+  
     context = {
         "id": my_id,
         'medication': medication,
         'daily_routine': daily_routine,
         'injection': injection,
-        'physical_health' : physical_health,
+        'physical_health': physical_health,
         'diet': diet,
-        'activity_usage' : activity_usage,
+        'question_usage' :question_usage,
+        'activity_usage': activity_usage,
         'patient_info': patient_info
     }
     return render(request, 'patient_profile.html', context)
